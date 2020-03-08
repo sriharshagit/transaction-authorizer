@@ -1,0 +1,15 @@
+{
+    "createrequest": {
+      "type": "object",
+      "properties": {
+        "account": { "type": "object",
+             "properties": { 
+                 "active-card" :{"type":"boolean"},
+                 "available-limit" :{"type":"number"}
+                },
+                "required": [ "active-card","available-limit"]
+        }
+    },
+    "required": [ "account"]
+  }
+}
