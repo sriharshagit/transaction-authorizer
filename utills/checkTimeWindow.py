@@ -30,10 +30,12 @@ def isPossible(transTime):
 
     if index > 1: # difference between 1st right and 1st and 2nd left
         if not checkDifference(var.transList[index + 1],var.transList[index - 2]):
+            var.transList.remove(transTime)
             return False
 
     if y > 2: # difference between element and 3rd right
         if not checkDifference(var.transList[index + 3],var.transList[index]):
+            var.transList.remove(transTime)
             return False
 
     if index > 3:  # difference between element and 3rd left
