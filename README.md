@@ -1,6 +1,7 @@
 # transaction-authorizer
 
-This project is hosted at aws and api links are and use post method
+This project is hosted at aws and api links are and use post method.
+
 for account creation http://ec2-52-66-188-226.ap-south-1.compute.amazonaws.com/account 
 for trasaction its http://ec2-52-66-188-226.ap-south-1.compute.amazonaws.com/transaction
 
