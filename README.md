@@ -89,13 +89,10 @@ businessRules/transaction/checkHighFrequency.py file will check whether given tr
 businessRules/transaction/checkSimilarTransaction.py file will check whether given transaction can be performed based on the similarities between two transactions. The business rule associated with this function states no two similar transaction can be performed within 2 minutes of timeframe. Here, similar transaction refers to transactions having same merchant and same amount.
 
     Algorithm:
-    Append the transaction time to global list
 
     Traverse the dictionary containing all the previous transaction and get the new list of transaction occurred between timeframe of 2 minutes wrt incoming transaction time.
 
     Validate all the transactions present in the new list with incoming transaction and if two transactions are found to be similar returns rejected otherwise accecpted.
-
-    In the final step, for each transaction irrespective of getting accepted or rejected, input transaction time is removed from the global list.
 
     Parameter:
     request object
