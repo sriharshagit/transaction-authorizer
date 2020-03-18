@@ -24,25 +24,25 @@ in main.py file exposed to endpoints i.e /account and /transaction and input val
 
 from here control goes to controller folder. for account endpoint the control goes to createAccount.py and for transaction endpoint the control goes to transactionAuthorization.py file in controller folder.
 
-createAccount.py will get array from constants/accountRulesList.py and traverses each rule and calls each rule which returns array. if returned array is empty then we proceed to check other business rule and if returned array has some data(exception) then create account will return response will data. if all business rules returns empty array then commit purpose of api and return success response.
+createAccount.py will get array from constants/accountRulesList.py and traverses each rule and calls each rule which returns array. if returned array is empty then we proceed to check other business rule and if returned array has some data(exception) then create account will return response with data(exception). if all business rules returns empty array then we commit purpose of api and return success response.
 
-same above follows with transactionAuthorization.py but will get array from constants/transactionRulesList.py
+same as above follows with transactionAuthorization.py but will get array from constants/transactionRulesList.py
 
 constants folder has 2 files and each file will export endpoint specific business rules which needs to be followed.
 
 constants/accountRulesList.py will export array of business rules which needs to be followed for /account endpoint. accountRulesList.py will pick business rules from businessRules/account and appended in array .
 
-constants/transactionRulesList.py will export array of business rules which needs to be followed for /transaction endpoint. accountRulesList.py will pick business rules from businessRules/transaction and appended in array .
+constants/transactionRulesList.py will export array of business rules which needs to be followed for /transaction endpoint. transactionRulesList.py will pick business rules from businessRules/transaction and appended in array .
 
 addition or deletion of new business rules which needs to be followed by endpoint can be done by appending or removing business rule from array which is exported by constants folder.
 
 here all the business rules will follow same input and output format. 
 
-input is request object and output is array. array is empty if business rule is followed or array will have exception message in array.
+input is request object and output is array. array is empty if business rule is followed else array will have exception message in array.
 
 businessRules/account/isAccountCreated.py file will check if account is already created of not, if created this will return expection message in array else will return empty array
 
-businessRules/transaction/checkSccountInitialized.py file will check is active card is true or not, if true will return empty array else will return expection message in array
+businessRules/transaction/checkAccountInitialized.py file will check is active card is true or not, if true will return empty array else will return expection message in array
 
 businessRules/transaction/checkAvailableLimit.py file will check if account holder has sufficient balance for transaction to commit. if has will return empty array else will return exception message in array
 
