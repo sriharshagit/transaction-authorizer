@@ -5,7 +5,7 @@
         "account": { "type": "object",
              "properties": { 
                  "active-card" :{"type":"boolean"},
-                 "available-limit" :{"type":"number"}
+                 "available-limit" :{"type":"number","minimum": 0}
                 },
                 "required": [ "active-card","available-limit"]
         }

@@ -1,13 +1,14 @@
-from utills.generalUtills import epochTime
-import globalVariables.variables as var
+from constants.accountRulesList import accountCreationRuleFlow
 from response.transactionAuthorizationResponse import responseObj
+import globalVariables.variables as accountVariable
 
-def accountCreate(data):    
-    if var.account_created :
-        return responseObj(["account-already-initialized"])
-    if data['account']['available-limit'] < 0:
-        return responseObj(["cant create accound with negative balance"])
-    var.account_balance = data['account']['available-limit']
-    var.active_card = data['account']['active-card']
-    var.account_created = True
+def accountCreate(data):
+    for rule in accountCreationRuleFlow:
+        a = rule(data)
+        if len(a) > 0:
+            return responseObj(a)
+    
+    accountVariable.account_balance = data['account']['available-limit']
+    accountVariable.active_card = data['account']['active-card']
+    accountVariable.account_created = True
     return responseObj([])

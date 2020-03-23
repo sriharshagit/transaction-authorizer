@@ -1,3 +1,3 @@
-import globalVariables.variables as var
-def responseObj(voitations):
-    return {"account" : { "active-card" : var.active_card, " available-limit" : var.account_balance, "violations" :voitations} }
+import globalVariables.variables as accountVariable
+def responseObj(violations):
+    return {"account" : { "active-card" : accountVariable.active_card, " available-limit" : accountVariable.account_balance, "violations" :violations} }

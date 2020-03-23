@@ -1,31 +1,17 @@
-from utills.generalUtills import epochTime
-from utills.checkTimeWindow import isPossible
-from utills.checkSimilarTransaction import checkSimilar
+import globalVariables.variables as accountVariable
+from constants.transactionRulesList import transactionRuleFlow
 from response.transactionAuthorizationResponse import responseObj
-import globalVariables.variables as var
+from utills.generalUtills import epochTime
+
 def makeTrasact(data):
     print(data)
-    if not var.active_card:
-        return  responseObj(['account-not-initialized'])
-    if data['transaction']['amount'] > var.account_balance:
-        return responseObj(['insufficient-limit'])
-        
+    for rule in transactionRuleFlow:
+        a = rule(data)
+        if len(a) > 0:
+            return responseObj(a)
+
     transTime = epochTime(data['transaction']['time'])
-    
-    for key in var.transactions_dict.keys():
-        if key == transTime:
-            return responseObj(['transaction-already-done-in-ths-timestamp'])
-    
-    isTransactionPossible = isPossible(transTime)
-    
-    if isTransactionPossible:
-        isNotSimilar = checkSimilar(data,transTime)
-        if isNotSimilar:
-            
-            var.transactions_dict[transTime] = {"amount":data['transaction']['amount'],"merchant":data['transaction']['merchant']}
-            var.account_balance = var.account_balance - data['transaction']['amount']
-            return responseObj([])
-        else:
-            return responseObj(["doubled-transaction"])
-    else:
-        return responseObj(["high-frequency-samll-interval"])
+    accountVariable.transactions_dict[transTime].append({"amount":data['transaction']['amount'],"merchant":data['transaction']['merchant']})
+    accountVariable.account_balance = accountVariable.account_balance - data['transaction']['amount']
+    accountVariable.transList.append(transTime)
+    return responseObj([])
